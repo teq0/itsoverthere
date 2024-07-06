@@ -1,0 +1,14 @@
+
+GET http://localhost:8080/index.html
+User-Agent: rest-client
+Accept-Language: en-GB,en-US;q=0.8,en;q=0.6,zh-CN;q=0.4
+Content-Type: application/json
+Host: handbook.engineering.cba
+
+
+
+GET http://localhost:8080/index.html
+User-Agent: rest-client
+Accept-Language: en-GB,en-US;q=0.8,en;q=0.6,zh-CN;q=0.4
+Content-Type: application/json
+Host: foo.com
