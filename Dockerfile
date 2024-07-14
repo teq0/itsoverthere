@@ -1,8 +1,7 @@
 FROM scratch
 ARG ARCH
-ARG APP_NAME
-COPY ./build/$ARCH/$APP_NAME /$APP_NAME
-ENTRYPOINT ["/$APP_NAME"]
+COPY ./build/$ARCH/itsoverthere /itsoverthere
+ENTRYPOINT ["/itsoverthere"]
 CMD []
 # EOF
 

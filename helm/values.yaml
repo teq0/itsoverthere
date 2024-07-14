@@ -1,0 +1,59 @@
+# Default values for ext-svc.
+nameOverride: "lol"
+fullnameOverride: "lol"
+
+appVersion: "1.0.9"
+
+serviceName: lol
+storageClass: nfs-client
+enableDebug: 0
+nodeSelectors: 
+  workerGroup: "1"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+#  className: traefik
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: '*.itsoverthere.lol'
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: '*.itsoverthere.info'
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: '*.someotherthing.xyz'
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: '*.yeahsure.cloud'
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: '*.engdemo.me'
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+      - '*.itsoverthere.lol'
+      secretName: itsoverthere-lol-tls
+    - hosts:
+      - '*.itsoverthere.info'
+      secretName: itsoverthere-info-tls
+    - hosts:
+      - '*.someotherthing.xyz'
+      secretName: someotherthing-xyz-tls
+    - hosts:
+      - '*.yeahsure.cloud'
+      secretName: yeahsure-cloud-tls
+    - hosts:
+      - '*.engdemo.me'
+      secretName: engdemo-me-tls

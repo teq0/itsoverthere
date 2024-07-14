@@ -1,0 +1,71 @@
+{{- $svcName := .Values.serviceName -}}
+{{- $svcPort := .Values.service.port -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-{{ $svcName }}
+  namespace: {{ $svcName }}
+  labels:
+    app: {{ $svcName }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+  selector:
+    app: {{ $svcName }}
+    tier: frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-{{ $svcName }}
+  namespace: {{ $svcName }}
+  labels:
+    app: {{ $svcName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $svcName }}
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ $svcName }}
+        tier: frontend
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+      {{- if .Values.nodeSelectors }}
+      nodeSelector:
+        {{- range $key, $val := .Values.nodeSelectors }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+      {{- end }}
+      containers:
+      - image: teq0v2/itsoverthere:{{ .Values.appVersion }}-arm64
+        name: app
+        env:
+        - name: DB_HOST
+          value: pg-{{ $svcName }}
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: itsoverthere
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: pg-secrets
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pg-secrets
+              key: password
+        ports:
+        - containerPort: 8080
+          name: app-{{ $svcName }}
+          

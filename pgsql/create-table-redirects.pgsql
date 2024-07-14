@@ -1,3 +1,14 @@
+-- SEQUENCE: public.redirects_id_seq
+
+-- DROP SEQUENCE IF EXISTS public.redirects_id_seq;
+
+CREATE SEQUENCE IF NOT EXISTS public.redirects_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+    
 -- Table: public.redirects
 
 -- DROP TABLE IF EXISTS public.redirects;
@@ -15,4 +26,9 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.redirects
     OWNER to postgres;
-    
+
+ALTER SEQUENCE public.redirects_id_seq
+    OWNED BY public.redirects.id;
+
+ALTER SEQUENCE public.redirects_id_seq
+    OWNER TO postgres;
