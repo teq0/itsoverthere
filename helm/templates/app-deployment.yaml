@@ -49,22 +49,6 @@ spec:
       - image: teq0v2/itsoverthere:{{ .Values.appVersion }}-arm64
         name: app
         env:
-        - name: DB_HOST
-          value: pg-{{ $svcName }}
-        - name: DB_PORT
-          value: "5432"
-        - name: DB_NAME
-          value: itsoverthere
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: pg-secrets
-              key: username
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: pg-secrets
-              key: password
         ports:
         - containerPort: 8080
           name: app-{{ $svcName }}
