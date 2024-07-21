@@ -41,6 +41,14 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+    - host: '*.sdlcdocs.online'
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: '*.cluelessbank.digital'
+      paths:
+        - path: /
+          pathType: Prefix
   tls:
     - hosts:
       - '*.itsoverthere.lol'
@@ -57,3 +65,9 @@ ingress:
     - hosts:
       - '*.engdemo.me'
       secretName: engdemo-me-tls
+    - hosts:
+      - '*.sdlcdocs.online'
+      secretName: sdlcdocs-online-tls
+    - hosts:
+      - '*.cluelessbank.digital'
+      secretName: cluelessbank-digital-tls

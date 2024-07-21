@@ -9,6 +9,13 @@ on:
   pull_request:
     branches: [ "main" ]
 
+  # Only run if main.go or Makefile changes
+  paths:
+    - 'main.go'
+    - 'Makefile'
+    - 'go.mod'
+    - 'go.sum'
+
 jobs:
 
   build:
@@ -24,5 +31,8 @@ jobs:
     - name: Build
       run: make build-arm64
 
+    - name: Attest Build Provenance
+      uses: actions/attest-build-provenance@v1.3.3
+            
     # - name: Test
     #   run: go test -v ./...
