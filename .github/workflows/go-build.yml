@@ -9,12 +9,12 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  # Only run if main.go or Makefile changes
-  paths:
-    - 'main.go'
-    - 'Makefile'
-    - 'go.mod'
-    - 'go.sum'
+# Only run if main.go or Makefile changes
+paths:
+  - 'main.go'
+  - 'Makefile'
+  - 'go.mod'
+  - 'go.sum'
 
 jobs:
 
